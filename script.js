@@ -127,17 +127,42 @@ let secondNumber = "";
 let cache = "";
 let currentOperator = "";
 const operators = ["+", "-", "x", "/", "="];
-
 const allButtons = document.querySelectorAll("button");
 allButtons.forEach(button => button.addEventListener("click", calculate));
 
-
 window.addEventListener("keydown", e => {
     console.log(e.key);
+    const operatorBtns = document.querySelectorAll(".ope");
     const button = document.querySelector(`button[data-key="${e.key}"]`);
     console.log(button);
-    if (!button) {
-        return;
-    }
+    if (!button) return;
     calculate.call(button);
+    if (e.key === "Backspace") {
+        operatorBtns.forEach(operator =>  operator.classList.remove("currentOperator-kb"));
+        button.classList.add("clear-delete-kb");
+        setTimeout(() => {
+            button.classList.remove("clear-delete-kb");
+        }, parseFloat(window.getComputedStyle(button).getPropertyValue("transition-duration")) * 1000);
+    } else if (e.key === "Delete") {
+        button.classList.add("clear-delete-kb");
+        setTimeout(() => {
+            button.classList.remove("clear-delete-kb");
+        }, parseFloat(window.getComputedStyle(button).getPropertyValue("transition-duration")) * 1000);
+    } else if (button.classList.contains("ope")) {
+        operatorBtns.forEach(operator =>  operator.classList.remove("currentOperator-kb"));
+        if (currentOperator === button.textContent) {
+            button.classList.add("currentOperator-kb");
+        } else if (button.textContent === "=") {
+            button.classList.add("equals-kb");
+            setTimeout(() => {
+                button.classList.remove("equals-kb");
+            }, parseFloat(window.getComputedStyle(button).getPropertyValue("transition-duration")) * 1500);
+        }
+    } else {
+        button.classList.add("button-hit-kb");
+        setTimeout(() => {
+            button.classList.remove("button-hit-kb");
+        }, parseFloat(window.getComputedStyle(button).getPropertyValue("transition-duration")) * 1000);
+
+    }
 });
