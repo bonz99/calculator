@@ -23,6 +23,11 @@ footer {
     color: bisque;
 }
 
+a {
+    color:rgb(250, 187, 110);
+    text-decoration: none;
+}
+
 .container {
     align-self: center;
     justify-self: center;
