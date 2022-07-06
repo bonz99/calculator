@@ -11,12 +11,23 @@ body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(24, 24, 243, 0.712);
+    justify-content: space-between;
+    background-color: #0349269c;
+}
+
+footer {
+    background-color: #02301969;
+    justify-self: center;
+    text-align: center;
+    font-size: x-large;
+    color: bisque;
 }
 
 .container {
+    align-self: center;
+    justify-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
     display: flex;
     max-width: 275px;
     height: 400px;
@@ -33,6 +44,10 @@ body {
     padding: 7px 5px;
     margin-top: 10px;
     font-size: x-large;
+}
+
+.display:empty::before {
+    content: "\200b"; /* unicode zero width space character */
 }
 
 .clear-delete {
@@ -95,14 +110,12 @@ button.ope {
     flex: 0.95;
 }
 
-button.num,
-button.ope,
-.clear-delete > button {
+button {
     font-size: x-large;
     background-color: gray;
     border-radius: 10%;
     transition-duration: 250ms;
-    transition-property: transform, background;
+    transition-property: transform, background-color;
 }
 
 button:hover {
@@ -119,5 +132,28 @@ button.ope:hover {
 
 button.clear:hover,
 button.delete:hover {
-    background-color: rgb(161, 14, 14);
+    background-color: #a10e0e;
+}
+
+
+/* ---keyboard animations--- */
+
+.button-hit-kb {
+    transform: scale(1.06);
+    background-color: #661b5c;
+}
+
+.currentOperator-kb {
+    transform: scale(1.06);
+    background-color: #055b63;
+}
+
+.equals-kb {
+    transform: scale(1.06);
+    background-color: rgb(5, 130, 99);
+}
+
+.clear-delete-kb {
+    transform: scale(1.06);
+    background-color: #a10e0e;
 }
