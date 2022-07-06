@@ -36,6 +36,7 @@ footer {
     justify-content: space-between;
     background-color: #e68a32;
     border-radius: 5%;
+    border: 1px solid beige;
 }
 
 .display {
