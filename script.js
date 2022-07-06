@@ -8,9 +8,11 @@ function multiply(a, b) {
     return a * b;
 }
 function divide(a, b) {
+    if (b === 0 && a !== 0) {
+        return NaN;
+    }
     return a / b;
 }
-
 function operate(operator, a, b) {
     let result = 0;
     switch (operator) {
@@ -29,10 +31,9 @@ function operate(operator, a, b) {
         default:
 
     }
-
+    if (!result) return "Division by zero error";
     return Math.round(result * 100) / 100;
 }
-
 function calculate() {
     let button = this;
     if (button.className.includes("ope")) {
@@ -54,6 +55,7 @@ function calculate() {
             if (operators.includes(cache.slice(-1))) {
                 if (button.textContent === "-") {
                     display.textContent = "-";
+                    cache += "-";
                     return;
                 } else {
                     cache = cache.slice(0, -1);
@@ -67,7 +69,9 @@ function calculate() {
                 firstNumber = parseFloat(firstNumber);
                 secondNumber = parseFloat(display.textContent);
                 display.textContent = operate(currentOperator, firstNumber, secondNumber);
-
+                if (display.textContent === "Division by zero error") {
+                    return;
+                }
                 firstNumber = display.textContent;
                 secondNumber = "";
                 if (button.textContent === "=") {
@@ -97,12 +101,24 @@ function calculate() {
         currentOperator = "";
         cache = "";
     } else if (button.className.includes("delete")) {
-        if (operators.includes(cache.slice(-1))) return;
+        if (display.textContent === "Division by zero error") return;
+        if (!currentOperator && !secondNumber && cache === firstNumber) return;
+        if (display.textContent === "-") {
+            display.textContent = "";
+            cache = cache.slice(0, -1);
+            if (!firstNumber) {
+                display.textContent = "0"; return;
+            }
+        }
+        if (currentOperator === (cache.slice(-1))) return;
         display.textContent = display.textContent.slice(0, -1);
         cache = cache.slice(0, -1);
+        if (!firstNumber && !display.textContent) {
+            display.textContent = "0";
+            return;
+        }
     }
 }
-
 
 let display = document.querySelector(".display");
 display.textContent = "0";
