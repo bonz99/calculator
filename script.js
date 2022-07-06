@@ -33,52 +33,8 @@ function operate(operator, a, b) {
     return Math.round(result * 100) / 100;
 }
 
-// function calculate(string) {
-//     if (string.includes("Error")) {
-//         return "Error";
-//     }
-//     let operators = ["+", "-", "x", "/", "="]
-//     let array = string.split("");
-//     let leftNum = "";
-//     let rightNum = "";
-//     let operator = "";
-//     for (let i = 0; i < array.length; i++) {
-//         if (operators.includes(array[i])) {
-//             if (operators.includes(array[i-1]) || i === 0) {
-//                 if (array[i] === "-" || array[i] === "+") {
-//                     if (!leftNum) {
-//                         leftNum += array[i];
-//                         continue;
-//                     }
-//                     rightNum += array[i];
-//                     continue;
-//                 } else {
-//                     return "Error";
-//                 }
-//             }
-//             if (operator) {
-//                 if (rightNum) {
-//                     rightNum = parseFloat(rightNum);
-//                     leftNum = operate(operator, leftNum, rightNum);
-//                     if (array[i] === "=") { return leftNum; }
-//                     rightNum = "";
-//                 }
-//                 operator = array[i];
-//             } else {
-//                 leftNum = parseFloat(leftNum);
-//                 operator = array[i];
-//             }
-//         } else if (operator) {
-//             rightNum += array[i];
-//         } else {
-//             leftNum += array[i];
-//         }
-//     }
-// }
-
-
 function calculate() {
-    let button = this
+    let button = this;
     if (button.className.includes("ope")) {
         if (!firstNumber) {
             if (display.textContent === "0") {
@@ -106,7 +62,7 @@ function calculate() {
                     return;
                 }
             }
-            
+
             if (currentOperator) {
                 firstNumber = parseFloat(firstNumber);
                 secondNumber = parseFloat(display.textContent);
@@ -123,6 +79,7 @@ function calculate() {
                 }
             } else {
                 currentOperator = button.textContent;
+                cache += button.textContent;
             }
 
         }
@@ -133,8 +90,19 @@ function calculate() {
         }
         cache += button.textContent;
         display.textContent += button.textContent;
+    } else if (button.className.includes("clear")) {
+        display.textContent = "0";
+        firstNumber = "";
+        secondNumber = "";
+        currentOperator = "";
+        cache = "";
+    } else if (button.className.includes("delete")) {
+        if (operators.includes(cache.slice(-1))) return;
+        display.textContent = display.textContent.slice(0, -1);
+        cache = cache.slice(0, -1);
     }
 }
+
 
 let display = document.querySelector(".display");
 display.textContent = "0";
@@ -144,23 +112,16 @@ let cache = "";
 let currentOperator = "";
 const operators = ["+", "-", "x", "/", "="];
 
-const numButtons = document.querySelectorAll(".num");
-numButtons.forEach(button => button.addEventListener("click", calculate));
+const allButtons = document.querySelectorAll("button");
+allButtons.forEach(button => button.addEventListener("click", calculate));
 
-const opeButtons = document.querySelectorAll(".ope");
-opeButtons.forEach(button => button.addEventListener("click", calculate));
 
-const clearBtn = document.querySelector(".clear");
-clearBtn.addEventListener("click", () => {
-    display.textContent = "0";
-    firstNumber = "";
-    secondNumber = "";
-    currentOperator = "";
-    cache = "";
-});
-
-const deleteBtn = document.querySelector(".delete");
-deleteBtn.addEventListener("click", () => {
-    display.textContent = display.textContent.slice(0, -1);
-    cache = cache.slice(0, -1);
+window.addEventListener("keydown", e => {
+    console.log(e.key);
+    const button = document.querySelector(`button[data-key="${e.key}"]`);
+    console.log(button);
+    if (!button) {
+        return;
+    }
+    calculate.call(button);
 });
