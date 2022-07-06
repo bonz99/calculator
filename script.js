@@ -38,7 +38,7 @@ function calculate() {
     let button = this;
     if (button.className.includes("ope")) {
         if (!firstNumber) {
-            if (display.textContent === "0") {
+            if (display.textContent === "0" || display.textContent === "-") {
                 if (button.textContent === "-") {
                     display.textContent = button.textContent;
                     cache = "-";
@@ -52,6 +52,7 @@ function calculate() {
                 cache += button.textContent;
             }
         } else {
+            
             if (operators.includes(cache.slice(-1))) {
                 if (button.textContent === "-") {
                     display.textContent = "-";
@@ -68,6 +69,10 @@ function calculate() {
             if (currentOperator) {
                 firstNumber = parseFloat(firstNumber);
                 secondNumber = parseFloat(display.textContent);
+                if (!secondNumber || !firstNumber) {
+                    display.textContent = "Error";
+                    cache = firstNumber = secondNumber = currentOperator = "";
+                }
                 display.textContent = operate(currentOperator, firstNumber, secondNumber);
                 if (display.textContent === "Division by zero error") {
                     return;
@@ -138,7 +143,7 @@ window.addEventListener("keydown", e => {
     if (!button) return;
     calculate.call(button);
     if (e.key === "Backspace") {
-        operatorBtns.forEach(operator =>  operator.classList.remove("currentOperator-kb"));
+        operatorBtns.forEach(operator => operator.classList.remove("currentOperator-kb"));
         button.classList.add("clear-delete-kb");
         setTimeout(() => {
             button.classList.remove("clear-delete-kb");
@@ -149,7 +154,13 @@ window.addEventListener("keydown", e => {
             button.classList.remove("clear-delete-kb");
         }, parseFloat(window.getComputedStyle(button).getPropertyValue("transition-duration")) * 1000);
     } else if (button.classList.contains("ope")) {
-        operatorBtns.forEach(operator =>  operator.classList.remove("currentOperator-kb"));
+        if (currentOperator && button.textContent === "-" || !firstNumber && button.textContent === "-") {
+            button.classList.add("button-hit-kb");
+            setTimeout(() => {
+                button.classList.remove("button-hit-kb");
+            }, parseFloat(window.getComputedStyle(button).getPropertyValue("transition-duration")) * 500);
+        }
+        operatorBtns.forEach(operator => operator.classList.remove("currentOperator-kb"));
         if (currentOperator === button.textContent) {
             button.classList.add("currentOperator-kb");
         } else if (button.textContent === "=") {
