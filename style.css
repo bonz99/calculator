@@ -64,7 +64,8 @@ body {
 button.num {
     flex-basis: 32%;
 }
-button.zero {
+
+#zero {
     flex-basis: 66%;
 }
 
