@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,30 +9,40 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
-<body style="background-color: dimgray;">
 
-    <div class="all-buttons">
-        <button class="num">1</button>
-        <button class="num">2</button>
-        <button class="num">3</button>
-        <button class="num">4</button>
-        <button class="num">5</button>
-        <button class="num">6</button>
-        <button class="num">7</button>
-        <button class="num">8</button>
-        <button class="num">9</button>
-        <button class="num">0</button>
-        <button class="num">.</button>
-        <button class="ope add">+</button>
-        <button class="ope subtract">-</button>
-        <button class="ope multiply">x</button>
-        <button class="ope divide">/</button>
-        <button class="ope equals">=</button>
-        <button class="clear">clr</button>
-        <button class="delete">del</button>
-    </div>
-    <div class="display">
+<body>
+    <div class="container">
+        <div class="display"></div>
+        <div class="all-buttons-div">
+            <div class="clear-delete">
+                <button class="clear" data-key="Backspace">clear</button>
+                <button class="delete" data-key="Delete">delete</button>
+            </div>
+            <div class="numbers-operators-div">
+                <div class="numbers-div">
+                    <button class="num" data-key="1">1</button>
+                    <button class="num" data-key="2">2</button>
+                    <button class="num" data-key="3">3</button>
+                    <button class="num" data-key="4">4</button>
+                    <button class="num" data-key="5">5</button>
+                    <button class="num" data-key="6">6</button>
+                    <button class="num" data-key="7">7</button>
+                    <button class="num" data-key="8">8</button>
+                    <button class="num" data-key="10">9</button>
+                    <button class="num zero" data-key="0">0</button>
+                    <button class="num" data-key=".">.</button>
+                </div>
+                <div class="operator-div">
+                    <button class="ope add" data-key="+">+</button>
+                    <button class="ope subtract" data-key="-">-</button>
+                    <button class="ope multiply" data-key="*">x</button>
+                    <button class="ope divide" data-key="/">/</button>
+                    <button class="ope equals" data-key="=">=</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
+
 </html>
