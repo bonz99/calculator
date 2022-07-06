@@ -112,10 +112,16 @@ button.ope {
 
 button {
     font-size: x-large;
-    background-color: gray;
+    background-color: rgb(153, 151, 151);
     border-radius: 10%;
+    border: 0.5px solid gold;
     transition-duration: 250ms;
     transition-property: transform, background-color;
+}
+
+button.clear,
+button.delete {
+    border-radius: 5%;
 }
 
 button:hover {
